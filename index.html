@@ -2,9 +2,56 @@
 <html lang="uk">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" href="data:," />
     <title>HW-01</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 24px;
+      }
+
+      .buttons {
+        display: flex;
+        gap: 8px;
+      }
+
+      button {
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
-    <script src="js/task-3.js"></script>
+    <h1>GoIT JS HW-01</h1>
+    <p>Натисни кнопку, щоб запустити лише одну задачу і перевірити вивід у консолі.</p>
+
+    <div class="buttons">
+      <button type="button" data-task="1">Task 1</button>
+      <button type="button" data-task="2">Task 2</button>
+      <button type="button" data-task="3">Task 3</button>
+    </div>
+
+    <script>
+      function runTask(taskNumber) {
+        console.clear();
+        console.log("Running task-" + taskNumber + ".js");
+
+        const previousScript = document.getElementById("task-script");
+        if (previousScript) {
+          previousScript.remove();
+        }
+
+        const script = document.createElement("script");
+        script.id = "task-script";
+        script.src = "js/task-" + taskNumber + ".js";
+        document.body.appendChild(script);
+      }
+
+      document.querySelectorAll("button[data-task]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          runTask(button.dataset.task);
+        });
+      });
+    </script>
   </body>
 </html>
